@@ -71,10 +71,10 @@ let markets = [
             return new Promise(function (res, rej) {
                 try {
                     for (let obj of data.result) {
-                        if(obj["symbol"].includes('eos-')) {
-                            let coinName = obj["symbol"].replace("eos-", '');
+                        if(obj["currency"].includes('EOS')) {
+                            let coinName = obj["quote_currency"].replace("eos-", '');
                             if (!coin_prices[coinName]) coin_prices[coinName] = {};
-                            coin_prices[coinName].bittrex = obj.last;
+                            coin_prices[coinName].newdex = obj.last;
                         }
                     }
                     res(coin_prices);
@@ -90,18 +90,18 @@ let markets = [
     },
 
     {
-        marketName: 'poloniex',
-        URL: 'https://poloniex.com/public?command=returnTicker',
+        marketName: 'alcor',
+        URL: 'https://alcor.exchange/api/markets',
         toBTCURL: false,
         pairURL : '',
         last: function (data, coin_prices) { //Where to find the last price of coin in JSON data
             return new Promise(function (res, rej) {
                 try {
-                    for (var obj in data) {
-                        if(obj.includes('BTC_')&&obj!=="BTC_EMC2") {
-                            let coinName = obj.replace("BTC_", '');
+                    for (let obj of data.result) {
+                        if(obj["name"].includes('EOS')) {
+                            let coinName = obj["name"].replace("EOS", '');
                             if (!coin_prices[coinName]) coin_prices[coinName] = {};
-                            coin_prices[coinName].poloniex = data[obj].last;
+                            coin_prices[coinName].alcor = obj.last_price;
                         }
                     }
                     res(coin_prices);
