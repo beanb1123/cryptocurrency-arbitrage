@@ -70,12 +70,20 @@ let markets = [
         last: function (data, coin_prices) { //Where to find the last price of coin in JSON data
             return new Promise(function (res, rej) {
                 try {
-                    for (let key in data) {
-                        let coinName = key.toUpperCase();
-                        let price = data[key].last;
-                        if (!coin_prices[coinName]) coin_prices[coinName] = {};
+   async function getPrices(newdex) {
+    const url = 'https://api.newdex.io/v1/tickers';
 
-                        coin_prices[coinName]["newdex"] = data[key].last;
+    const response = await fetch(url);
+    const pairs = await response.json();
+
+    return pairs;
+  }
+
+  const tickers = await getPrices('newdex');
+  tickers.forEach((ticker) => {
+  console.log('{$ticker.data.name}');
+});
+                        coin_prices[coinName].newdex = {$ticker.data.last};
                     }
                     res(coin_prices);
                 }
