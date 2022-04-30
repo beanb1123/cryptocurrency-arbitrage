@@ -1,27 +1,5 @@
 let markets = [
 
-     marketName: 'newdex',
-     URL: 'https://api.newdex.io/v1/tickers',
-     toBTCURL: false, 
-     last: function (data, coin_prices) { 
-         return new Promise(function (res, rej) {
-             try {
-                 for (x in / of data) {
-                     price = x.last;
-                     coin_prices[coinName][marketName] = price;
-                 }
-                 res(coin_prices);
-             }
-             catch (err) {
-                 rej(err);
-             }
-
-         })
-     },
-
-
- },
-
     {
         marketName: 'bittrex',
         URL: 'https://api.newdex.io/v1/tickers',
@@ -34,7 +12,7 @@ let markets = [
                         if(obj["currency"].includes('EOS')) {
                             let coinName = obj["quote_currency"];
                             if (!coin_prices[coinName]) coin_prices[coinName] = {};
-                            coin_prices[coinName].bittrex = obj.Last;
+                            coin_prices[coinName].newdex = obj.last;
                         }
                     }
                     res(coin_prices);
