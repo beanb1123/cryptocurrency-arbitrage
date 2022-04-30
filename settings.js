@@ -24,15 +24,15 @@ let markets = [
 
     {
         marketName: 'bittrex',
-        URL: 'https://bittrex.com/api/v1.1/public/getmarketsummaries',
+        URL: 'https://api.newdex.io/v1/tickers',
         toBTCURL: false,
         pairURL : '',
         last: function (data, coin_prices) { //Where to find the last price of coin in JSON data
             return new Promise(function (res, rej) {
                 try {
-                    for (let obj of data.result) {
-                        if(obj["MarketName"].includes('BTC-')) {
-                            let coinName = obj["MarketName"].replace("BTC-", '');
+                    for (let obj of data) {
+                        if(obj["currency"].includes('EOS')) {
+                            let coinName = obj["quote_currency"];
                             if (!coin_prices[coinName]) coin_prices[coinName] = {};
                             coin_prices[coinName].bittrex = obj.Last;
                         }
