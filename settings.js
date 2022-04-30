@@ -1,5 +1,27 @@
 let markets = [
 
+     marketName: 'newdex',
+     URL: 'https://api.newdex.io/v1/tickers',
+     toBTCURL: false, 
+     last: function (data, coin_prices) { 
+         return new Promise(function (res, rej) {
+             try {
+                 for (x in / of data) {
+                     price = x.last;
+                     coin_prices[coinName][marketName] = price;
+                 }
+                 res(coin_prices);
+             }
+             catch (err) {
+                 rej(err);
+             }
+
+         })
+     },
+
+
+ },
+
     {
         marketName: 'bittrex',
         URL: 'https://bittrex.com/api/v1.1/public/getmarketsummaries',
