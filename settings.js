@@ -67,17 +67,27 @@ let markets = [
         URL: 'https://api.newdex.io/v1/tickers',
         toBTCURL: false,
         pairURL : '',
-        last: function (data, coin_prices) { //Where to find the last price of coin in JSON data
+        last: function (data, coin_prices) { //Get the last price of coins in JSON data
             return new Promise(function (res, rej) {
                 try {
-                    for (let obj of data.result) {
-                        if(obj["currency"].includes('EOS')) {
-                            let coinName = obj["quote_currency"].replace("eos-", '');
-                            if (!coin_prices[coinName]) coin_prices[coinName] = {};
-                            coin_prices[coinName].newdex = obj.last;
+                    for (let key in []) {
+                        let arr = key.match(/EOS|TKT|DICE|PGL|BBT|BOX|BOID/); // matching real names to weird kraken api coin pairs like "XETCXXBT" etc 
+                        let name = key;
+                        let matchedName = arr[0];
+                        if (matchedName === "EOS") { //kraken calls DOGE "XDG" for whatever reason
+                            let matchedName = "EOS";
+                            var coinName = matchedName;
+                        } else {
+                            var coinName = matchedName;
                         }
+
+                        if (!coin_prices[coinName]) coin_prices[coinName] = {};
+                        
+                        coin_prices[coinName].alcor = data[name].c[0];
+
                     }
                     res(coin_prices);
+
                 }
                 catch (err) {
                     console.log(err);
@@ -91,20 +101,30 @@ let markets = [
 
     {
         marketName: 'alcor',
-        URL: 'https://alcor.exchange/api/markets',
+        URL: 'https://eos.alcor.exchange/api/markets',
         toBTCURL: false,
         pairURL : '',
-        last: function (data, coin_prices) { //Where to find the last price of coin in JSON data
+        last: function (data, coin_prices) { //Get the last price of coins in JSON data
             return new Promise(function (res, rej) {
                 try {
-                    for (let obj of data.result) {
-                        if(obj["name"].includes('EOS')) {
-                            let coinName = obj["name"].replace("EOS", '');
-                            if (!coin_prices[coinName]) coin_prices[coinName] = {};
-                            coin_prices[coinName].alcor = obj.last_price;
+                    for (let key in []) {
+                        let arr = key.match(/EOS|TKT|DICE|PGL|BBT|BOX|BOID/); // matching real names to weird kraken api coin pairs like "XETCXXBT" etc 
+                        let name = key;
+                        let matchedName = arr[0];
+                        if (matchedName === "EOS") { //kraken calls DOGE "XDG" for whatever reason
+                            let matchedName = "EOS";
+                            var coinName = matchedName;
+                        } else {
+                            var coinName = matchedName;
                         }
+
+                        if (!coin_prices[coinName]) coin_prices[coinName] = {};
+                        
+                        coin_prices[coinName].alcor = symbol.name[name].c[0];
+
                     }
                     res(coin_prices);
+
                 }
                 catch (err) {
                     console.log(err);
@@ -113,8 +133,8 @@ let markets = [
 
             })
         },
-
     },
+
 ];
 
 let marketNames = [];
