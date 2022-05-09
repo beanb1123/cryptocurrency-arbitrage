@@ -12,12 +12,12 @@ let markets = [
                         if(obj.sym0.includes('WAX')) {
                             let coinName = obj.sym1.replace();
                             if (!coin_prices[coinName]) coin_prices[coinName] = {};
-                            coin_prices[coinName].bittrex = obj["price1"];
+                            coin_prices[coinName].defibox = obj["price"];
                         } else if
                         if(obj.sym1.includes('WAX')) {
                             let coinName = obj.sym0.replace();
                             if (!coin_prices[coinName]) coin_prices[coinName] = {};
-                            coin_prices[coinName].bittrex = obj["price2"];
+                            coin_prices[coinName].defibox = obj["price"];
                         }
                     }
                     res(coin_prices);
@@ -44,12 +44,12 @@ let markets = [
                         if(obj.sym0.includes('WAX')) {
                             let coinName = obj.sym1.replace();
                             if (!coin_prices[coinName]) coin_prices[coinName] = {};
-                            coin_prices[coinName].poloniex = obj["price1"];
+                            coin_prices[coinName].alcorswap = obj["price"];
                         }
                         if(obj.sym1.includes('WAX')) {
                             let coinName = obj.sym0.replace();
                             if (!coin_prices[coinName]) coin_prices[coinName] = {};
-                            coin_prices[coinName].bittrex = obj["price2"];
+                            coin_prices[coinName].alcorswap = obj["price"];
                         }
                     }
                     res(coin_prices);
